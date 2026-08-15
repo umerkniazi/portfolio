@@ -1,0 +1,67 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+interface CommonProps {
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md';
+  class?: string;
+}
+
+type AnchorProps = CommonProps &
+  HTMLAttributes<'a'> & {
+    href: string;
+  };
+
+type ButtonProps = CommonProps &
+  HTMLAttributes<'button'> & {
+    href?: never;
+    type?: 'button' | 'submit' | 'reset';
+  };
+
+type Props = AnchorProps | ButtonProps;
+
+const {
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  ...rest
+} = Astro.props as Props;
+
+const baseStyles =
+  'inline-flex items-center justify-center gap-2 rounded border font-mono font-semibold transition-colors duration-150 active:translate-y-[1px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg no-underline select-none cursor-pointer group';
+
+const sizeStyles = {
+  sm: 'px-3 py-1.5 text-xs',
+  md: 'px-4 py-2 text-sm leading-normal',
+};
+
+const variantStyles = {
+  primary:
+    'border-accent bg-accent text-white dark:text-bg hover:opacity-90',
+  secondary:
+    'border-accent bg-transparent text-accent hover:bg-accent/10',
+};
+
+const classes = [
+  baseStyles,
+  sizeStyles[size],
+  variantStyles[variant],
+  className,
+].join(' ');
+---
+
+{
+  'href' in rest && rest.href ? (
+    <a class={classes} {...(rest as HTMLAttributes<'a'>)}>
+      <slot />
+    </a>
+  ) : (
+    <button
+      type={(rest as HTMLAttributes<'button'>).type || 'button'}
+      class={classes}
+      {...(rest as HTMLAttributes<'button'>)}
+    >
+      <slot />
+    </button>
+  )
+}

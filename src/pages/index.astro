@@ -1,6 +1,7 @@
 ---
 import { Icon } from 'astro-icon/components';
 import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import { site } from '../data/site.ts';
 import { projects } from '../data/projects.ts';
@@ -33,19 +34,52 @@ const featured = projects.filter((p) => p.featured);
       </div>
     </dl>
 
-    <div class="mt-8 flex flex-wrap gap-3">
-      <a href="/projects" class="btn-primary group">
-        View projects
-        <Icon 
-          name="tabler:arrow-right" 
-          class="h-4 w-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5" 
-          aria-hidden="true" 
-        />
-      </a>
-      <a href="/resume" class="btn-secondary">
-        <Icon name="tabler:file-text" class="h-4 w-4" aria-hidden="true" />
-        Resume
-      </a>
+    <div class="mt-8 flex flex-wrap items-center gap-3.5 sm:gap-4">
+      <div class="flex flex-wrap gap-3">
+        <Button href="/projects" variant="primary">
+          View projects
+          <Icon 
+            name="tabler:arrow-right" 
+            class="h-4 w-4 transition-transform duration-150 ease-out group-hover:translate-x-0.5" 
+            aria-hidden="true" 
+          />
+        </Button>
+        <Button href={site.resumeUrl} variant="secondary" target="_blank" rel="noopener noreferrer">
+          Resume
+          <Icon name="tabler:arrow-up-right" class="h-4 w-4" aria-hidden="true" />
+        </Button>
+      </div>
+
+      <div class="flex items-center gap-2 text-muted" aria-label="Social links">
+        <a
+          href={site.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub profile"
+          title="GitHub"
+          class="rounded p-1.5 text-muted transition-colors duration-150 hover-text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        >
+          <Icon name="tabler:brand-github" class="h-5 w-5" aria-hidden="true" />
+        </a>
+        <a
+          href={site.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn profile"
+          title="LinkedIn"
+          class="rounded p-1.5 text-muted transition-colors duration-150 hover-text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        >
+          <Icon name="tabler:brand-linkedin" class="h-5 w-5" aria-hidden="true" />
+        </a>
+        <a
+          href={`mailto:${site.email}`}
+          aria-label="Email"
+          title="Email"
+          class="rounded p-1.5 text-muted transition-colors duration-150 hover-text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        >
+          <Icon name="tabler:mail" class="h-5 w-5" aria-hidden="true" />
+        </a>
+      </div>
     </div>
   </section>
 
