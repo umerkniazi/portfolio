@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { site } from '../data/site.ts';
 
 const path = new URL(Astro.request.url).pathname.replace(/\/index\.html$/, '');
 
@@ -11,7 +10,7 @@ const links = [
   { href: '/resume', label: 'resume' },
 ];
 
-function isActive(href) {
+function isActive(href: string): boolean {
   if (href === '/') return path === '/' || path === '';
   return path.startsWith(href);
 }
@@ -33,7 +32,9 @@ function isActive(href) {
     } else {
       document.documentElement.classList.add('dark');
     }
-    window.localStorage.setItem('theme', theme);
+    try {
+      window.localStorage.setItem('theme', theme);
+    } catch (e) {}
   }
   applyTheme();
   document.addEventListener('astro:after-swap', applyTheme);
@@ -128,7 +129,9 @@ function isActive(href) {
       const element = document.documentElement;
       element.classList.toggle('dark');
       const isDark = element.classList.contains('dark');
-      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      try {
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+      } catch (e) {}
     });
   }
 
@@ -141,7 +144,8 @@ function isActive(href) {
     const iconOpen = toggle.querySelector('[data-icon="open"]');
     const iconClose = toggle.querySelector('[data-icon="close"]');
 
-    function setOpen(open) {
+    function setOpen(open: boolean) {
+      if (!toggle || !panel) return;
       toggle.setAttribute('aria-expanded', String(open));
       toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
       panel.classList.toggle('nav-mobile-open', open);
@@ -169,28 +173,36 @@ function isActive(href) {
       if (e.target instanceof HTMLElement && e.target.tagName === 'A') setOpen(false);
     });
 
-    document.addEventListener('click', (e) => {
-      if (toggle.getAttribute('aria-expanded') !== 'true') return;
-      if (!(e.target instanceof Node)) return;
-      if (!toggle.contains(e.target) && !panel.contains(e.target)) {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
+    if (!document.body.dataset.navBound) {
+      document.body.dataset.navBound = 'true';
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
-        setOpen(false);
-        toggle.focus();
-      }
-    });
+      document.addEventListener('click', (e) => {
+        const t = document.getElementById('nav-toggle');
+        const p = document.getElementById('nav-mobile');
+        if (!t || !p || t.getAttribute('aria-expanded') !== 'true') return;
+        if (!(e.target instanceof Node)) return;
+        if (!t.contains(e.target) && !p.contains(e.target)) {
+          setOpen(false);
+          t.focus();
+        }
+      });
 
-    const desktopQuery = window.matchMedia('(min-width: 640px)');
-    desktopQuery.addEventListener('change', (e) => {
-      if (e.matches && toggle.getAttribute('aria-expanded') === 'true') {
-        setOpen(false);
-      }
-    });
+      document.addEventListener('keydown', (e) => {
+        const t = document.getElementById('nav-toggle');
+        if (e.key === 'Escape' && t && t.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+          t.focus();
+        }
+      });
+
+      const desktopQuery = window.matchMedia('(min-width: 640px)');
+      desktopQuery.addEventListener('change', (e) => {
+        const t = document.getElementById('nav-toggle');
+        if (e.matches && t && t.getAttribute('aria-expanded') === 'true') {
+          setOpen(false);
+        }
+      });
+    }
   }
 
   function initScripts() {

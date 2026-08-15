@@ -8,10 +8,28 @@ import { site } from '../data/site.ts';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
 }
 
-const { title, description = site.description } = Astro.props;
+const { title, description = site.description, image = '/favicon.svg' } = Astro.props;
 const pageTitle = title === site.name ? title : `${title} — ${site.name}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://umer-niazi.github.io');
+const socialImageURL = new URL(image, Astro.site || 'https://umer-niazi.github.io');
+
+const schemaData = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  jobTitle: site.role,
+  url: 'https://umer-niazi.github.io',
+  sameAs: [site.github, site.linkedin],
+  alumniOf: {
+    '@type': 'EducationalOrganization',
+    name: site.education.school,
+  },
+  knowsAbout: site.interests,
+  description: site.description,
+};
 ---
 
 <!doctype html>
@@ -20,14 +38,28 @@ const pageTitle = title === site.name ? title : `${title} — ${site.name}`;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL.href} />
     <meta name="generator" content={Astro.generator} />
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
 
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:image" content={socialImageURL.href} />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content={canonicalURL.href} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL.href} />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 
     <ClientRouter />
   </head>
