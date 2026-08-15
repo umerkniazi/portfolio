@@ -1,5 +1,6 @@
 ---
 import { Icon } from 'astro-icon/components';
+import { site } from '../data/site.ts';
 
 const path = new URL(Astro.request.url).pathname.replace(/\/index\.html$/, '');
 
@@ -7,7 +8,7 @@ const links = [
   { href: '/', label: 'home' },
   { href: '/projects', label: 'projects' },
   { href: '/about', label: 'about' },
-  { href: '/resume', label: 'resume' },
+  { href: site.resumeUrl, label: 'resume', external: true },
 ];
 
 function isActive(href: string): boolean {
@@ -15,30 +16,6 @@ function isActive(href: string): boolean {
   return path.startsWith(href);
 }
 ---
-
-<script is:inline>
-  function applyTheme() {
-    const theme = (() => {
-      if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-        return localStorage.getItem('theme');
-      }
-      if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        return 'dark';
-      }
-      return 'light';
-    })();
-    if (theme === 'light') {
-      document.documentElement.classList.remove('dark');
-    } else {
-      document.documentElement.classList.add('dark');
-    }
-    try {
-      window.localStorage.setItem('theme', theme);
-    } catch (e) {}
-  }
-  applyTheme();
-  document.addEventListener('astro:after-swap', applyTheme);
-</script>
 
 <header class="relative z-40 border-b border-border bg-bg py-6 transition-colors duration-300">
   <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-5 sm:px-8">
@@ -52,15 +29,20 @@ function isActive(href: string): boolean {
           links.map((link) => (
             <a
               href={link.href}
-              aria-current={isActive(link.href) ? 'page' : undefined}
+              target={link.external ? '_blank' : undefined}
+              rel={link.external ? 'noopener noreferrer' : undefined}
+              aria-current={!link.external && isActive(link.href) ? 'page' : undefined}
               class:list={[
-                'px-2 py-2 underline-offset-4 transition-colors duration-150',
-                isActive(link.href) 
-                  ? 'font-medium text-ink' 
+                'inline-flex items-center gap-1 px-2 py-2 underline-offset-4 transition-colors duration-150',
+                !link.external && isActive(link.href) 
+                  ? 'font-medium text-ink underline' 
                   : 'text-muted hover-text-accent hover-underline',
               ]}
             >
-              {link.label}
+              <span>{link.label}</span>
+              {link.external && (
+                <Icon name="tabler:arrow-up-right" class="h-3.5 w-3.5 opacity-70" aria-hidden="true" />
+              )}
             </a>
           ))
         }
@@ -104,15 +86,20 @@ function isActive(href: string): boolean {
       links.map((link) => (
         <a
           href={link.href}
-          aria-current={isActive(link.href) ? 'page' : undefined}
+          target={link.external ? '_blank' : undefined}
+          rel={link.external ? 'noopener noreferrer' : undefined}
+          aria-current={!link.external && isActive(link.href) ? 'page' : undefined}
           class:list={[
-            'block rounded px-5 py-3.5 underline-offset-4 transition-colors duration-150',
-            isActive(link.href) 
-              ? 'font-medium text-ink' 
+            'flex items-center justify-between rounded px-5 py-3.5 underline-offset-4 transition-colors duration-150',
+            !link.external && isActive(link.href) 
+              ? 'font-medium text-ink underline' 
               : 'text-muted hover-text-accent hover-underline',
           ]}
         >
-          {link.label}
+          <span>{link.label}</span>
+          {link.external && (
+            <Icon name="tabler:arrow-up-right" class="h-4 w-4 opacity-70" aria-hidden="true" />
+          )}
         </a>
       ))
     }

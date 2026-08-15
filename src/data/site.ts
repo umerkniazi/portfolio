@@ -8,7 +8,7 @@ export const site = {
   githubHandle: '@umer-niazi',
   linkedin: 'https://linkedin.com/in/umer-niazi',
   available: true,
-  statusText: 'Open to Software Engineering & AI internships',
+  statusText: 'Open to Software Engineering & ML/AI internships',
   currentFocus: 'Machine learning, software engineering and developer tools',
   resumeUrl: '/resume.pdf',
   description:
