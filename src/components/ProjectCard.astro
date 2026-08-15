@@ -39,13 +39,15 @@ const Heading = headingLevel;
       <p class="mt-2 text-sm leading-relaxed text-body">{summary || description}</p>
 
       {outcome && outcome.length > 0 && (
-        <ul class="mt-3 flex flex-wrap gap-1.5 text-xs" aria-label="Project outcomes">
-          {outcome.map((stat) => (
-            <li class="rounded-md border border-border bg-surface px-2.5 py-1 font-medium text-body">
-              {stat}
-            </li>
-          ))}
-        </ul>
+        <p class="mt-3 text-xs font-medium text-ink" aria-label="Project outcomes">
+          {outcome.join(' · ')}
+        </p>
+      )}
+
+      {stack && stack.length > 0 && (
+        <p class="mt-1.5 text-xs text-faint" aria-label="Technologies">
+          {stack.slice(0, 4).join(' · ')}
+        </p>
       )}
 
       {(demoUrl || sourceUrl) && (
@@ -81,37 +83,25 @@ const Heading = headingLevel;
 
       <p class="mt-3 text-sm leading-relaxed text-body">{description}</p>
 
-      {stack && stack.length > 0 && (
-        <ul class="mt-4 flex flex-wrap gap-1.5 text-xs" aria-label="Technologies used">
-          {stack.map((tech) => (
-            <li class="rounded-md border border-border bg-surface px-2.5 py-1 text-faint">
-              {tech}
-            </li>
-          ))}
-        </ul>
+      {outcome && outcome.length > 0 && (
+        <p class="mt-4 text-xs font-medium text-ink" aria-label="Project outcomes">
+          {outcome.join(' · ')}
+        </p>
       )}
 
-      {outcome && outcome.length > 0 && (
-        <ul class="mt-3 flex flex-wrap gap-1.5 text-xs" aria-label="Project outcomes">
-          {outcome.map((stat) => (
-            <li class="rounded-md border border-border bg-surface px-2.5 py-1 font-medium text-body">
-              {stat}
-            </li>
-          ))}
-        </ul>
+      {stack && stack.length > 0 && (
+        <p class="mt-1.5 text-xs text-faint" aria-label="Technologies used">
+          {stack.join(' · ')}
+        </p>
       )}
 
       {features && features.length > 0 && (
-        <ul class="mt-3 flex flex-wrap gap-1.5 text-xs" aria-label="Project features">
-          {features.map((feature) => (
-            <li class="rounded-md border border-border bg-surface px-2.5 py-1 text-muted">
-              {feature}
-            </li>
-          ))}
-        </ul>
+        <p class="mt-1.5 text-xs text-muted" aria-label="Project features">
+          {features.join(' · ')}
+        </p>
       )}
 
-      <div class="mt-auto pt-8 flex gap-5 text-sm">
+      <div class="mt-auto pt-6 flex gap-5 text-sm">
         {demoUrl && (
           <a
             href={demoUrl}
