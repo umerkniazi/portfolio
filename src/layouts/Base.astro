@@ -89,12 +89,12 @@ const schemaData = {
       })();
     </script>
 
-    <ClientRouter />
+    <ClientRouter fallback="swap" />
   </head>
   <body>
     <a
       href="#main"
-      class="fixed left-4 top-4 z-50 -translate-y-16 rounded bg-accent px-3 py-2 text-sm font-medium text-bg transition-transform focus-visible:translate-y-0"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-accent focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-bg"
     >
       Skip to content
     </a>

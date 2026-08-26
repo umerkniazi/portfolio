@@ -160,16 +160,13 @@
 }
 
 .icon-swap {
-  transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  transform-origin: center;
+  transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .icon-hidden,
 html:not(.dark) .theme-icon-sun,
 html.dark .theme-icon-moon {
   opacity: 0;
-  transform: scale(0.92);
   pointer-events: none;
 }
 
@@ -305,8 +302,13 @@ html.dark .btn-primary {
   mix-blend-mode: normal;
 }
 
+::view-transition-image-pair(root) {
+  isolation: isolate;
+}
+
 ::view-transition-group(root) {
   animation-duration: 100ms;
+  background-color: var(--color-bg);
 }
 
 @media (prefers-reduced-motion: reduce) {
