@@ -36,6 +36,20 @@ const schemaData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Theme initialization (prevents FOUC) -->
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('theme');
+          var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          var cl = document.documentElement.classList;
+          cl.toggle('dark', isDark);
+          cl.toggle('light', !isDark);
+        } catch (e) {}
+      })();
+    </script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL.href} />
     <meta name="generator" content={Astro.generator} />
@@ -59,26 +73,6 @@ const schemaData = {
 
     <!-- Structured Data (JSON-LD) -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
-
-    <!-- Theme initialization (prevents FOUC) -->
-    <script is:inline>
-      (function () {
-        function getTheme() {
-          if (typeof localStorage !== 'undefined' && localStorage.getItem('theme')) {
-            return localStorage.getItem('theme');
-          }
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
-
-        function applyTheme(doc) {
-          const targetDoc = doc || document;
-          const isDark = getTheme() === 'dark';
-          targetDoc.documentElement.classList.toggle('dark', isDark);
-        }
-
-        applyTheme(document);
-      })();
-    </script>
   </head>
   <body>
     <a

@@ -29,6 +29,21 @@
   --color-accent: rgb(var(--color-accent-rgb));
 }
 
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --color-bg-rgb: 13 17 23;
+    --color-surface-rgb: 22 27 34;
+    --color-surface-hover-rgb: 28 33 40;
+    --color-ink-rgb: 244 248 251;
+    --color-body-rgb: 198 205 213;
+    --color-muted-rgb: 139 148 158;
+    --color-faint-rgb: 139 148 158;
+    --color-border-raw: rgba(255, 255, 255, 0.08);
+    --color-border-strong-raw: rgba(255, 255, 255, 0.18);
+    --color-accent-rgb: 88 166 255;
+  }
+}
+
 .dark {
   --color-bg-rgb: 13 17 23;
   --color-surface-rgb: 22 27 34;
@@ -86,13 +101,17 @@
 
   html {
     background-color: var(--color-bg);
-    color-scheme: light;
+    color-scheme: light dark;
     -webkit-text-size-adjust: 100%;
     text-rendering: geometricPrecision;
   }
 
   html.dark {
     color-scheme: dark;
+  }
+
+  html.light {
+    color-scheme: light;
   }
 
   body {
@@ -163,11 +182,51 @@
   transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.icon-hidden,
-html:not(.dark) .theme-icon-sun,
+.icon-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.theme-icon-sun {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.theme-icon-moon {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .theme-icon-sun {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  html:not(.light) .theme-icon-moon {
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+html.dark .theme-icon-sun {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 html.dark .theme-icon-moon {
   opacity: 0;
   pointer-events: none;
+}
+
+html.light .theme-icon-sun {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html.light .theme-icon-moon {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #nav-mobile {
@@ -240,6 +299,12 @@ html.dark .theme-icon-moon {
   border-color: var(--color-accent);
   background-color: var(--color-accent);
   color: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  html:not(.light) .btn-primary {
+    color: var(--color-bg);
+  }
 }
 
 html.dark .btn-primary {
