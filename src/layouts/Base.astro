@@ -1,5 +1,4 @@
 ---
-import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -61,7 +60,7 @@ const schemaData = {
     <!-- Structured Data (JSON-LD) -->
     <script is:inline type="application/ld+json" set:html={JSON.stringify(schemaData)} />
 
-    <!-- Theme initialization (prevents FOUC and dark mode view-transition flashing) -->
+    <!-- Theme initialization (prevents FOUC) -->
     <script is:inline>
       (function () {
         function getTheme() {
@@ -78,18 +77,8 @@ const schemaData = {
         }
 
         applyTheme(document);
-
-        document.addEventListener('astro:before-swap', (event) => {
-          applyTheme(event.newDocument);
-        });
-
-        document.addEventListener('astro:after-swap', () => {
-          applyTheme(document);
-        });
       })();
     </script>
-
-    <ClientRouter fallback="swap" />
   </head>
   <body>
     <a
