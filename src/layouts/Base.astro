@@ -1,4 +1,5 @@
 ---
+import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -37,9 +38,9 @@ const schemaData = {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- Theme initialization (prevents FOUC) -->
+    <!-- Theme initialization (prevents FOUC and preserves theme on view transitions) -->
     <script is:inline>
-      (function () {
+      function applyTheme() {
         try {
           var stored = localStorage.getItem('theme');
           var isDark = stored === 'dark' || (!stored && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -47,8 +48,12 @@ const schemaData = {
           cl.toggle('dark', isDark);
           cl.toggle('light', !isDark);
         } catch (e) {}
-      })();
+      }
+      document.addEventListener('astro:after-swap', applyTheme);
+      applyTheme();
     </script>
+
+    <ClientRouter />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href={canonicalURL.href} />

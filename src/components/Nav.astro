@@ -107,6 +107,8 @@ function isActive(href: string): boolean {
 </header>
 
 <script>
+  let globalNavListenersBound = false;
+
   function initThemeToggle() {
     const toggle = document.getElementById('theme-toggle');
     if (!toggle || toggle.dataset.bound === 'true') return;
@@ -164,8 +166,8 @@ function isActive(href: string): boolean {
       if (e.target instanceof HTMLElement && e.target.tagName === 'A') setOpen(false);
     });
 
-    if (!document.body.dataset.navBound) {
-      document.body.dataset.navBound = 'true';
+    if (!globalNavListenersBound) {
+      globalNavListenersBound = true;
 
       document.addEventListener('click', (e) => {
         const t = document.getElementById('nav-toggle');
@@ -201,5 +203,5 @@ function isActive(href: string): boolean {
     initNavToggle();
   }
 
-  initScripts();
+  document.addEventListener('astro:page-load', initScripts);
 </script>
