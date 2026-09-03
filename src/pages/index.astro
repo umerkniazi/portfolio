@@ -89,8 +89,10 @@ const featured = projects.filter((p) => p.featured);
       <a href="/projects" class="text-sm text-muted hover:text-accent hover:underline">All projects →</a>
     </div>
 
-    <div class="mt-10 grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-10">
-      {featured.map((project) => <ProjectCard {...project} variant="minimal" />)}
+    <div class="mt-10 grid grid-cols-1 gap-y-12 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-14">
+      {featured.map((project, idx) => (
+        <ProjectCard {...project} index={idx + 1} variant="minimal" />
+      ))}
     </div>
   </section>
 
