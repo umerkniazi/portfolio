@@ -97,12 +97,15 @@ const featured = projects.filter((p) => p.featured);
   </section>
 
   <section class="mt-16 border-t border-border pt-8 max-w-prose sm:mt-20" aria-labelledby="about-heading">
-    <div class="flex items-baseline justify-between">
-      <h2 id="about-heading" class="text-xl font-semibold tracking-tight text-ink">About</h2>
-      <a href="/about" class="text-sm text-muted hover-text-accent hover-underline">More about me →</a>
-    </div>
+    <h2 id="about-heading" class="text-xl font-semibold tracking-tight text-ink">About</h2>
     <p class="mt-4 text-base leading-relaxed text-body">
       {site.bio.summary}
+    </p>
+    <p class="mt-4 text-sm">
+      <a href="/about" class="group inline-flex items-center gap-1.5 text-accent underline-offset-4 hover:underline">
+        <span>More about me and how I work</span>
+        <span class="transition-transform duration-150 ease-out group-hover:translate-x-0.5" aria-hidden="true">→</span>
+      </a>
     </p>
   </section>
 </Base>
