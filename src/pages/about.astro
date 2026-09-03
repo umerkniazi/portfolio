@@ -25,13 +25,10 @@ import { environment } from '../data/environment.ts';
     </a>
   </p>
 
-  <!-- 01 // Education -->
+  <!-- Education -->
   <section class="mt-16 border-t border-border pt-8" aria-labelledby="education-heading">
-    <div class="flex items-baseline justify-between">
-      <h2 id="education-heading" class="text-xl font-semibold tracking-tight text-ink">Education</h2>
-      <span class="font-mono text-xs text-muted">[ 01 ]</span>
-    </div>
-    <div class="mt-5 flex flex-col gap-1 border-t border-border/40 pt-4 sm:flex-row sm:items-baseline sm:justify-between">
+    <h2 id="education-heading" class="text-xl font-semibold tracking-tight text-ink">Education</h2>
+    <div class="mt-4 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
       <div>
         <p class="text-sm font-semibold text-ink">
           {site.education.degree}
@@ -42,18 +39,13 @@ import { environment } from '../data/environment.ts';
     </div>
   </section>
 
-  <!-- 02 // Skills & Interests -->
+  <!-- Skills & Interests -->
   <div class="mt-16 border-t border-border pt-8">
-    <div class="mb-8 flex items-baseline justify-between">
-      <h2 id="skills-heading" class="text-xl font-semibold tracking-tight text-ink">Skills & Focus</h2>
-      <span class="font-mono text-xs text-muted">[ 02 ]</span>
-    </div>
-
     <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-10">
       <!-- Skills as Architectural Specimen Tags -->
-      <section aria-labelledby="skills-subheading">
-        <h3 id="skills-subheading" class="font-mono text-xs font-semibold uppercase tracking-wider text-muted">Technical Arsenal</h3>
-        <div class="mt-5 flex flex-col gap-6">
+      <section aria-labelledby="skills-heading">
+        <h2 id="skills-heading" class="text-xl font-semibold tracking-tight text-ink">Skills</h2>
+        <div class="mt-6 flex flex-col gap-6">
           {
             skills.map((group) => (
               <div class="flex flex-col gap-2.5">
@@ -71,13 +63,10 @@ import { environment } from '../data/environment.ts';
         </div>
       </section>
 
-      <!-- Interests with Distinct Editorial Structure -->
+      <!-- Interests -->
       <section aria-labelledby="interests-heading">
-        <h3 id="interests-heading" class="font-mono text-xs font-semibold uppercase tracking-wider text-muted">Curiosities & Care</h3>
-        <p class="mt-2 text-xs leading-relaxed text-muted">
-          Areas I explore deeply, contribute to, or care about beyond day-to-day software delivery.
-        </p>
-        <ul class="mt-5 flex flex-col gap-2.5 font-mono text-xs text-body">
+        <h2 id="interests-heading" class="text-xl font-semibold tracking-tight text-ink">Interests</h2>
+        <ul class="mt-6 flex flex-col gap-3 font-mono text-xs text-body">
           {
             site.interests.map((interest) => (
               <li class="group flex items-baseline gap-2.5">
@@ -93,15 +82,10 @@ import { environment } from '../data/environment.ts';
     </div>
   </div>
 
-  <!-- 03 // Setup -->
+  <!-- Setup -->
   <section class="mt-16 border-t border-border pt-8" aria-labelledby="environment-heading">
-    <div class="flex items-baseline justify-between">
-      <div>
-        <h2 id="environment-heading" class="text-xl font-semibold tracking-tight text-ink">Setup</h2>
-        <p class="mt-1.5 text-xs text-muted">What I actually build with, day to day.</p>
-      </div>
-      <span class="font-mono text-xs text-muted">[ 03 ]</span>
-    </div>
+    <h2 id="environment-heading" class="text-xl font-semibold tracking-tight text-ink">Setup</h2>
+    <p class="mt-1 text-xs text-muted">What I actually build with, day to day.</p>
 
     <dl class="mt-6 grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-6">
       {
