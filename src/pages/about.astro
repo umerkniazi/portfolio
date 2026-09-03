@@ -6,58 +6,113 @@ import { environment } from '../data/environment.ts';
 ---
 
 <Base title="About" description={`About ${site.name}.`}>
-  <h1 class="text-3xl font-bold tracking-tight text-ink">About</h1>
+  <h1 class="text-3xl font-bold tracking-tight text-ink sm:text-4xl">About</h1>
 
-  <div class="mt-6 flex max-w-[60ch] flex-col gap-4 text-sm leading-relaxed text-body">
-    {site.bio.about.map((paragraph) => <p>{paragraph}</p>)}
+  <div class="mt-6 flex max-w-[60ch] flex-col gap-4">
+    {
+      site.bio.about.map((paragraph, idx) => (
+        <p class={idx === 0 ? 'text-base leading-relaxed text-ink' : 'text-sm leading-relaxed text-body'}>
+          {paragraph}
+        </p>
+      ))
+    }
   </div>
 
-  <p class="mt-4 text-sm">
-    <a href={`mailto:${site.email}`} class="text-accent underline-offset-4 hover:underline">Email me →</a>
+  <p class="mt-5 text-sm">
+    <a href={`mailto:${site.email}`} class="inline-flex items-center gap-1.5 text-accent underline-offset-4 hover:underline">
+      <span>Email me</span>
+      <span aria-hidden="true">→</span>
+    </a>
   </p>
 
-  <section class="mt-14 border-t border-border pt-8 sm:mt-16" aria-labelledby="education-heading">
-    <h2 id="education-heading" class="font-mono text-xs font-semibold uppercase tracking-widest text-muted">Education</h2>
-    <div class="mt-4 flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-      <p class="text-sm font-semibold text-ink">
-        {site.education.degree} <span class="font-normal text-faint">— {site.education.school}</span>
-      </p>
-      <p class="font-mono text-xs text-faint">{site.education.period}</p>
+  <!-- 01 // Education -->
+  <section class="mt-16 border-t border-border pt-8" aria-labelledby="education-heading">
+    <div class="flex items-baseline justify-between">
+      <h2 id="education-heading" class="text-xl font-semibold tracking-tight text-ink">Education</h2>
+      <span class="font-mono text-xs text-muted">[ 01 ]</span>
+    </div>
+    <div class="mt-5 flex flex-col gap-1 border-t border-border/40 pt-4 sm:flex-row sm:items-baseline sm:justify-between">
+      <div>
+        <p class="text-sm font-semibold text-ink">
+          {site.education.degree}
+        </p>
+        <p class="mt-0.5 font-mono text-xs text-faint">{site.education.school}</p>
+      </div>
+      <p class="font-mono text-xs text-accent">{site.education.period}</p>
     </div>
   </section>
 
-  <div class="mt-14 grid grid-cols-1 gap-12 border-t border-border pt-8 sm:mt-16 sm:grid-cols-2 sm:gap-10">
-    <section aria-labelledby="skills-heading">
-      <h2 id="skills-heading" class="font-mono text-xs font-semibold uppercase tracking-widest text-muted">Skills</h2>
-      <div class="mt-6 flex flex-col gap-6">
-        {
-          skills.map((group) => (
-            <div class="flex flex-col gap-1.5">
-              <h3 class="font-mono text-[11px] font-medium uppercase tracking-wider text-faint">{group.category}</h3>
-              <p class="font-mono text-sm leading-relaxed text-body">
-                {group.items.join(' · ')}
-              </p>
-            </div>
-          ))
-        }
-      </div>
-    </section>
+  <!-- 02 // Skills & Interests -->
+  <div class="mt-16 border-t border-border pt-8">
+    <div class="mb-8 flex items-baseline justify-between">
+      <h2 id="skills-heading" class="text-xl font-semibold tracking-tight text-ink">Skills & Focus</h2>
+      <span class="font-mono text-xs text-muted">[ 02 ]</span>
+    </div>
 
-    <section aria-labelledby="interests-heading">
-      <h2 id="interests-heading" class="font-mono text-xs font-semibold uppercase tracking-widest text-muted">Interests</h2>
-      <p class="mt-6 font-mono text-sm leading-relaxed text-body">{site.interests.join(' · ')}</p>
-    </section>
+    <div class="grid grid-cols-1 gap-12 sm:grid-cols-2 sm:gap-10">
+      <!-- Skills as Architectural Specimen Tags -->
+      <section aria-labelledby="skills-subheading">
+        <h3 id="skills-subheading" class="font-mono text-xs font-semibold uppercase tracking-wider text-muted">Technical Arsenal</h3>
+        <div class="mt-5 flex flex-col gap-6">
+          {
+            skills.map((group) => (
+              <div class="flex flex-col gap-2.5">
+                <span class="font-mono text-[11px] font-medium uppercase tracking-wider text-faint">{group.category}</span>
+                <ul class="flex flex-wrap gap-2">
+                  {group.items.map((skill) => (
+                    <li class="cursor-default select-none rounded-none border border-border bg-transparent px-2.5 py-1 font-mono text-xs text-body transition-colors duration-150 hover:border-accent hover:bg-accent/[0.02] hover:text-ink">
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Interests with Distinct Editorial Structure -->
+      <section aria-labelledby="interests-heading">
+        <h3 id="interests-heading" class="font-mono text-xs font-semibold uppercase tracking-wider text-muted">Curiosities & Care</h3>
+        <p class="mt-2 text-xs leading-relaxed text-muted">
+          Areas I explore deeply, contribute to, or care about beyond day-to-day software delivery.
+        </p>
+        <ul class="mt-5 flex flex-col gap-2.5 font-mono text-xs text-body">
+          {
+            site.interests.map((interest) => (
+              <li class="group flex items-baseline gap-2.5">
+                <span class="text-[10px] text-accent transition-transform duration-150 group-hover:translate-x-0.5" aria-hidden="true">
+                  →
+                </span>
+                <span class="text-body transition-colors duration-150 group-hover:text-ink">{interest}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
   </div>
 
-  <section class="mt-14 border-t border-border pt-8 sm:mt-16" aria-labelledby="environment-heading">
-    <h2 id="environment-heading" class="font-mono text-xs font-semibold uppercase tracking-widest text-muted">Setup</h2>
-    <p class="mt-2 text-sm text-body">What I actually build with, day to day.</p>
-    <dl class="mt-8 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-8">
+  <!-- 03 // Setup -->
+  <section class="mt-16 border-t border-border pt-8" aria-labelledby="environment-heading">
+    <div class="flex items-baseline justify-between">
+      <div>
+        <h2 id="environment-heading" class="text-xl font-semibold tracking-tight text-ink">Setup</h2>
+        <p class="mt-1.5 text-xs text-muted">What I actually build with, day to day.</p>
+      </div>
+      <span class="font-mono text-xs text-muted">[ 03 ]</span>
+    </div>
+
+    <dl class="mt-6 grid grid-cols-1 gap-y-4 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-6">
       {
         environment.map((group) => (
-          <div class="flex flex-col gap-1.5 border-t border-border/40 pt-3">
-            <dt class="font-mono text-[11px] font-medium uppercase tracking-wider text-muted">{group.category}</dt>
-            <dd class="font-mono text-sm leading-relaxed text-body">{group.items.join(' · ')}</dd>
+          <div class="group flex flex-col gap-1 border-t border-border/40 pt-3 transition-colors duration-150 hover:border-accent">
+            <dt class="font-mono text-[11px] font-medium uppercase tracking-wider text-faint transition-colors duration-150 group-hover:text-accent">
+              {group.category}
+            </dt>
+            <dd class="font-mono text-sm leading-relaxed text-body transition-colors duration-150 group-hover:text-ink">
+              {group.items.join(' · ')}
+            </dd>
           </div>
         ))
       }
