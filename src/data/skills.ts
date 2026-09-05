@@ -1,30 +1,18 @@
 export const skills = [
   {
     category: 'Languages',
-    items: ['Python', 'TypeScript', 'JavaScript', 'C++', 'GDScript'],
+    items: ['Python', 'TypeScript', 'JavaScript', 'C++', 'SQL', 'GDScript'],
   },
   {
     category: 'AI & Machine Learning',
-    items: [
-      'PyTorch',
-      'scikit-learn',
-      'Transformers',
-      'NLP',
-      'Computer Vision',
-      'spaCy',
-      'BERTopic',
-    ],
+    items: ['PyTorch', 'scikit-learn', 'Transformers', 'Computer Vision', 'NLP'],
   },
   {
-    category: 'Data',
-    items: ['Pandas', 'NumPy', 'SQLite'],
+    category: 'Software & Systems',
+    items: ['FastAPI', 'React', 'Streamlit', 'SQLite', 'Linux', 'Git', 'Bash'],
   },
   {
-    category: 'Development',
-    items: ['FastAPI', 'React', 'Tailwind CSS', 'Streamlit', 'Godot'],
-  },
-  {
-    category: 'Systems & tools',
-    items: ['Git', 'Linux', 'Bash'],
+    category: 'Game Dev',
+    items: ['Godot', 'Unity'],
   },
 ];
