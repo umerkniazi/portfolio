@@ -8,7 +8,7 @@ export const site = {
   githubHandle: '@umer-niazi',
   linkedin: 'https://linkedin.com/in/umer-niazi',
   available: true,
-  statusText: 'Open to Software Engineering & ML/AI internships',
+  statusText: 'Open to Software Engineering and ML/AI internships',
   currentFocus: 'Machine learning, software engineering and developer tools',
   resumeUrl: '/resume.pdf',
   description:
@@ -21,16 +21,16 @@ export const site = {
 
   bio: {
     about: [
-      "I started programming with Python through small scripts, like one to calculate my grades. Even before coding, I was the person troubleshooting routers, printers and electronics. I enjoy taking things apart, understanding how they work and rebuilding them.",
-      "Outside of code, I care about wildlife and animal welfare, from cats and dogs to spiders and insects.",
+      "I started programming with Python through small scripts, like one to calculate my grades. Even before coding, I was the person troubleshooting routers, printers, and electronics. I enjoy taking things apart, understanding how they work, and rebuilding them.",
+      "Outside of programming, I care about wildlife and animal welfare—from cats and dogs to spiders and insects.",
     ],
     summary:
-      "I'm studying Artificial Intelligence at UET Lahore and see myself as a software engineer first. My projects usually begin with curiosity or a problem I want to solve, then I choose the tools that fit. I enjoy machine learning, terminal applications, open source and building software that feels complete.",
+      "I'm studying Artificial Intelligence at UET Lahore and see myself as a software engineer first. My projects usually begin with curiosity or a problem I want to solve, then I choose the tools that fit. I enjoy machine learning, terminal applications, open source, and building software that feels complete.",
   },
 
   education: {
     degree: 'BS Artificial Intelligence',
-    school: 'UET Lahore',
+    school: 'University of Engineering and Technology (UET Lahore)',
     period: 'Expected 2029',
   },
 
